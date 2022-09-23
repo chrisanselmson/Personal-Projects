@@ -83,31 +83,47 @@ keyAC.addEventListener("click", () => {
     val1 = [];
     val2 = [];
 });
-
-/*Compute Resolution - Function calling*/
-keyEqual.addEventListener("click", () => {
-    if(method === "sum"){
-        addition(val1, val2);
+/*Mild Reset - after selecting any arithmetic operation key*/
+const mildReset = () => {
+    const allSpan = display.querySelectorAll("span");
+    for(elem of allSpan){
+        elem.remove();
     }
-    else if(method == "sub"){
-        subtraction(val1, val2);
-    }
-    else if(method === "mult"){
-        multiplication(val1, val2);
-    }
-    else{
-        division(val1, val2);
-    }
-});
+};
 
 /*Arithmetic methods*/
 keySum.addEventListener("click", () => {
-   const allSpan = display.querySelectorAll("span");
+    method = "sum";   
+    const allSpan = display.querySelectorAll("span");
     for(elem of allSpan){                               //Run a search of all the spans in the display
         val1.push(elem.innerText);                      //read and store the htmlText in val1
     }                                            
     val1 = val1.toString().replaceAll(",", "");
-    method = "sum";                                                           
+    mildReset();                                                 
+});
+keySub.addEventListener("click", () => {
+    method = "sub";
+    const allSpan = display.querySelectorAll("span");
+    for(elem of allSpan){                               //Run a search of all the spans in the display
+        val1.push(elem.innerText);                      //read and store the htmlText in val1
+    }
+    mildReset(); 
+});
+keyMult.addEventListener("click", () => {
+    method = "mult";
+    const allSpan = display.querySelectorAll("span");
+    for(elem of allSpan){                               //Run a search of all the spans in the display
+        val1.push(elem.innerText);                      //read and store the htmlText in val1
+    }
+    mildReset();
+});
+keyDiv.addEventListener("click", () => {                //A bit useless since the division is accessed via else statement
+    method = "div";
+    const allSpan = display.querySelectorAll("span");
+    for(elem of allSpan){                               //Run a search of all the spans in the display
+        val1.push(elem.innerText);                      //read and store the htmlText in val1
+    }
+    mildReset();
 });
 
 /*Review and improve later the dot for float numbers*/
@@ -119,25 +135,57 @@ keyDot.addEventListener("click", () => {
 
 /*Operations*/
 function addition (val1, val2){
-    const res = toString(parseFloat(val1)+parseFloat(val2));
-    const display = document.querySelector("#display");
-    return display.innerHtmlText = res;
-}
+    const res = parseFloat(val1)+parseFloat(val2);
+    return res;
+};
 
 function subtraction (val1, val2){
-    const res = toString(parseFloat(val1)-parseFloat(val2));
-    const display = document.querySelector("#display");
-    return display.innerHtmlText = res;
-}
+    const res = parseFloat(val1)-parseFloat(val2);
+    return res;
+};
 
 function multiplication (val1,val2){
-    const res = toString(parseFloat(val1)*parseFloat(val2));
-    const display = document.querySelector("#display");
-    return display.innerHtmlText = res;
-}
+    const res = parseFloat(val1)*parseFloat(val2);
+    return res;
+};
 
 function division (val1, val2){
-    const res = toString(parseFloat(val1)/parseFloat(val2));
-    const display = document.querySelector("#display");
-    return display.innerHtmlText = res;
-}
+    const res = parseFloat(val1)/parseFloat(val2);
+    return res;
+};
+
+/*Compute Resolution - Function calling*/
+keyEqual.addEventListener("click", () => {
+    const allSpan = display.querySelectorAll("span");
+
+    for(elem of allSpan){                               //Run a search of all the spans in the display
+        val2.push(elem.innerText);                      //read and store the htmlText in val2
+    }
+
+    if(method === "sum"){
+        res = addition(val1, val2);
+    }
+    else if(method === "sub"){
+        res = subtraction(val1, val2);
+    }
+    else if(method === "mult"){
+        res = multiplication(val1, val2);
+    }
+    else{
+        res = division(val1, val2);
+    }
+    mildReset(); //Clear display so it cannot send any other number to the result
+
+    const span = document.createElement("span");
+    span.textContent=res;
+    display.appendChild(span);
+});
+
+
+/* Known Bugs
+- Negative numbers are not displayed
+- Zero division
+- cumulative operations
+- Multiple comma operator fix
+- Multiple equals results in NaN
+*/
