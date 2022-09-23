@@ -1,0 +1,9 @@
+
+/* Known Bugs */
+
+September 23rd, 2022
+- Negative numbers are not displayed
+- Zero division
+- cumulative operations
+- Multiple comma operator fix
+- Multiple equals results in NaN
