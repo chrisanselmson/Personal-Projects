@@ -1,9 +1,20 @@
-
 /* Known Bugs */
+
+September 25th, 2022
+- Fixed: Multiple comma operator are shown
+- Fixed: Multiple equals results in NaN
+- Fixed: Rework code duplicates
+- Fixed: Negative numbers are not displayed
+- Fixed: Operations with decimals are not computed
+- Fixed: Operations with val 2 only compute the first digit only
+- Pending : Consecutive operations do not display the correct number
 
 September 23rd, 2022
 - Negative numbers are not displayed
-- Zero division
-- cumulative operations
-- Multiple comma operator fix
+- Operations with decimals are not computed
+- COnsecutive operations do not display the correct number
+- Multiple comma operator are shown
 - Multiple equals results in NaN
+- operations with val 2 only compute the first digit only
+- Rework code duplicates
+

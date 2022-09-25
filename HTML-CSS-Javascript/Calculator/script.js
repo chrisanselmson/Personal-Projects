@@ -1,4 +1,7 @@
-/*Variable declaration*/
+let val1 = [];
+let val2 = [];
+let dotCount = 0;
+let method = "";
 const key1 = document.querySelector("#key1");
 const key2 = document.querySelector("#key2");
 const key3 = document.querySelector("#key3");
@@ -17,120 +20,123 @@ const keySub = document.querySelector("#keySub");
 const keyMult = document.querySelector("#keyMult");
 const keyDiv = document.querySelector("#keyDiv");
 const display = document.querySelector("#display");
-let val1 = [];
-let val2 = [];
-let method = "";
 
-/*Display manipulation */
 key1.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=1;
-    display.appendChild(span)
+    displayResult(1);
 });
 key2.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=2;
-    display.appendChild(span)
+    displayResult(2);
 });
 key3.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=3;
-    display.appendChild(span)
+    displayResult(3);
 });
 key4.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=4;
-    display.appendChild(span)
+    displayResult(4);
 });
 key5.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=5;
-    display.appendChild(span)
+    displayResult(5);
 });
 key6.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=6;
-    display.appendChild(span)
+    displayResult(6);
 });
 key7.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=7;
-    display.appendChild(span)
+    displayResult(7);
 });
 key8.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=8;
-    display.appendChild(span)
+    displayResult(8);
 });
 key9.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=9;
-    display.appendChild(span)
+    displayResult(9);
 });
 key0.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=0;
-    display.appendChild(span)
+    displayResult(0);
 });
 
-/*Reset all*/
-keyAC.addEventListener("click", () => {
+
+/*Clear display*/
+const clearDisplay = () => {
     const allSpan = display.querySelectorAll("span");
     for(elem of allSpan){
         elem.remove();
     }
+    dotCount = 0;
+};
+/*Reset all*/
+keyAC.addEventListener("click", () => {
+    clearDisplay();
     method = "";
     val1 = [];
     val2 = [];
+    dotCount = 0;
+    console.clear();
 });
-/*Mild Reset - after selecting any arithmetic operation key*/
-const mildReset = () => {
-    const allSpan = display.querySelectorAll("span");
-    for(elem of allSpan){
-        elem.remove();
-    }
-};
+
 
 /*Arithmetic methods*/
 keySum.addEventListener("click", () => {
     method = "sum";   
-    const allSpan = display.querySelectorAll("span");
-    for(elem of allSpan){                               //Run a search of all the spans in the display
-        val1.push(elem.innerText);                      //read and store the htmlText in val1
-    }                                            
-    val1 = val1.toString().replaceAll(",", "");
-    mildReset();                                                 
+    storeInVal1();
+    clearDisplay();                                                 
 });
 keySub.addEventListener("click", () => {
     method = "sub";
-    const allSpan = display.querySelectorAll("span");
-    for(elem of allSpan){                               //Run a search of all the spans in the display
-        val1.push(elem.innerText);                      //read and store the htmlText in val1
-    }
-    mildReset(); 
+    storeInVal1();
+    clearDisplay(); 
 });
 keyMult.addEventListener("click", () => {
     method = "mult";
-    const allSpan = display.querySelectorAll("span");
-    for(elem of allSpan){                               //Run a search of all the spans in the display
-        val1.push(elem.innerText);                      //read and store the htmlText in val1
-    }
-    mildReset();
+    storeInVal1();
+    clearDisplay();
 });
-keyDiv.addEventListener("click", () => {                //A bit useless since the division is accessed via else statement
-    method = "div";
-    const allSpan = display.querySelectorAll("span");
-    for(elem of allSpan){                               //Run a search of all the spans in the display
-        val1.push(elem.innerText);                      //read and store the htmlText in val1
+keyDiv.addEventListener("click", () => {                
+    method = "div";             //A bit useless since the division is accessed via else statement
+    storeInVal1();
+    clearDisplay();
+});
+keyDot.addEventListener("click", () => {
+    if(dotCount < 1 && val1.length == 0){
+        displayResult(".");
+        dotCount++;
     }
-    mildReset();
+    else{
+        //Do nothing
+    }
+    if(dotCount < 1 && val2.length == 0){
+        displayResult(".");
+        dotCount++;
+    }
+    else{
+        //Do nothing
+    }
 });
 
-/*Review and improve later the dot for float numbers*/
-keyDot.addEventListener("click", () => {
-    const span = document.createElement("span");
-    span.textContent=".";
-    display.appendChild(span)
+/*Compute Resolution - Function calling*/
+keyEqual.addEventListener("click", () => {
+    storeInVal2();
+    if(val1.length == 0 || val2.length == 0 || method == "" ){
+        //Do nothing
+    }
+    else if(method === "sum"){
+        res = addition(val1, val2);
+        clearDisplay();
+        displayResult(res);
+    }
+    else if(method === "sub"){
+        res = subtraction(val1, val2);
+        clearDisplay(); 
+        displayResult(res);
+    }
+    else if(method === "mult"){
+        res = multiplication(val1, val2);
+        clearDisplay();
+        displayResult(res);
+    }
+    else{
+        res = division(val1, val2);
+        clearDisplay();
+        displayResult(res);
+    }
+
 });
 
 /*Operations*/
@@ -154,38 +160,25 @@ function division (val1, val2){
     return res;
 };
 
-/*Compute Resolution - Function calling*/
-keyEqual.addEventListener("click", () => {
+/*Storing the value shown in the display*/
+const storeInVal1 = () =>{
     const allSpan = display.querySelectorAll("span");
-
     for(elem of allSpan){                               //Run a search of all the spans in the display
-        val2.push(elem.innerText);                      //read and store the htmlText in val2
-    }
+        val1.push(elem.innerText);                      //read and store the htmlText in val1
+    }                                            
+    val1 = val1.toString().replaceAll(",", "");
+}
 
-    if(method === "sum"){
-        res = addition(val1, val2);
-    }
-    else if(method === "sub"){
-        res = subtraction(val1, val2);
-    }
-    else if(method === "mult"){
-        res = multiplication(val1, val2);
-    }
-    else{
-        res = division(val1, val2);
-    }
-    mildReset(); //Clear display so it cannot send any other number to the result
+const storeInVal2 = () =>{
+    const allSpan = display.querySelectorAll("span");
+    for(elem of allSpan){                               //Run a search of all the spans in the display
+        val2.push(elem.innerText);                      //read and store the htmlText in val1
+    }                                            
+    val2 = val2.toString().replaceAll(",","");
+};
 
+const displayResult = (value) =>{
     const span = document.createElement("span");
-    span.textContent=res;
+    span.textContent = value;
     display.appendChild(span);
-});
-
-
-/* Known Bugs
-- Negative numbers are not displayed
-- Zero division
-- cumulative operations
-- Multiple comma operator fix
-- Multiple equals results in NaN
-*/
+};
