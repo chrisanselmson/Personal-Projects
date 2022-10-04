@@ -1,5 +1,9 @@
 /* Known Bugs */
 
+
+**Future Features:
+- Add numerical keyboard event listeners
+
 September 25th, 2022
 - Fixed: Multiple comma operator are shown
 - Fixed: Multiple equals results in NaN
