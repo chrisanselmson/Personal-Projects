@@ -1,0 +1,97 @@
+/* https://coolors.co/palette/22577a-38a3a5-57cc99-80ed99-c7f9cc*/
+/* https://coolors.co/palette/99e2b4-88d4ab-78c6a3-67b99a-56ab91-469d89-358f80-248277-14746f-036666*/
+
+body{
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Prompt', sans-serif;
+}
+
+header, #dropdown-menu-box, #cart-div{
+    background: linear-gradient(to top left,#358F80, #99E2B4);
+}
+
+#brand-name{
+    text-align: center;
+    width: 100vw;
+    color: #22577A;
+}
+
+.btn-outline-success {
+    color: #22577A;
+    border-color: #22577A;
+}
+
+.btn-outline-success:hover {
+    color: #fff;
+    background-color: #22577A;
+    border-color: #22577A;
+}
+
+#brand-name img{
+    transform: translateY(-7px);
+    background: linear-gradient(to bottom right, #469D89 40%, white);
+    border-radius: 5px 5px;
+    padding: 0.25rem 0.25rem;
+}
+
+#header-nav-items{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(3, 102, 102)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+#nav-button, #dropdown-menu-box{
+    border: none;
+    outline: none;
+}
+
+#dropdown-menu-box{
+    width: fit-content;
+}
+
+#shopping-cart img{
+    width: 30px;
+    height: 30px;
+    filter: contrast(600%);
+}
+
+#shopping-cart{
+    transform: translateX(10px);
+}
+
+#cart-div{
+    width: 30vw;
+    height: 100vh;
+    transform: translate(70vw, -24px);
+}
+
+#body-content{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: space-evenly;
+    margin-top: 174px;
+}
+
+.dropdown-item, #brandsDropdown, #navItemID{
+    color: #22577A;
+    font-weight: bold;
+}
+
+@media (max-width:1115px){
+    #navbarSupportedContent ul, #navbarSupportedContent form{
+        transform: translate(15px, 0px);
+    }
+    #cart-div, #shopping-cart{
+        display: none;
+    }
+}
+
+
